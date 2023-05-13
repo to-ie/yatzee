@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>What are your names?</h2>
+    
+    <div class=notice>
+        Make sure the names are written down in their playing order.
+    </div>
+    <br>
+    <br>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        
+        {{ form.player1(size=32, class_='player-form', placeholder="Player 1") }}<br>
+        {% for error in form.player1.errors %}
+        <span class="alert">[{{ error }}]</span>
+        {% endfor %}
+
+        {{ form.player2(size=32, class_='player-form', placeholder="Player 2") }}<br>
+        {% for error in form.player2.errors %}
+        <span class="alert">[{{ error }}]</span>
+        {% endfor %}
+
+        {{ form.player3(size=32, class_='player-form', placeholder="Player 3") }}<br>
+        {% for error in form.player3.errors %}
+        <span class="alert">[{{ error }}]</span>
+        {% endfor %}
+
+        {{ form.player4(size=32, class_='player-form', placeholder="Player 4") }}<br>
+        {% for error in form.player4.errors %}
+        <span class="alert">[{{ error }}]</span>
+        {% endfor %}
+
+        {{ form.player5(size=32, class_='player-form', placeholder="Player 5") }}<br>
+        {% for error in form.player5.errors %}
+        <span class="alert">[{{ error }}]</span>
+        {% endfor %}
+
+        {{ form.submit(class_='player-form-btn') }}
+
+    </form>
+
+{% endblock %}

@@ -1,15 +1,25 @@
 <!doctype html>
 <html>
     <head>
-      {% if title %}
-      <title>{{ title }} - Microblog</title>
-      {% else %}
-      <title>Welcome to Microblog</title>
-      {% endif %}
+        <link rel="stylesheet" href="static/style.css">
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Lilita+One:400,700,900' rel='stylesheet' type='text/css'>
+        {% if title %}
+        <title>{{ title }} - Yatzee</title>
+        {% else %}
+        <title>Yatzee</title>
+{% endif %}
     </head>
     <body>
-        <div>Microblog: <a href="/index">Home</a></div>
-        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
         {% block content %}{% endblock %}
     </body>
 </html>

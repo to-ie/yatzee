@@ -1,0 +1,107 @@
+body{
+    background-color: #00B2FF;
+    font-family: 'Lato', sans-serif;
+}
+
+h1{ 
+    text-align: center;
+    font-size: 220px;
+    font-family: 'Lilita One', helvetica, arial;
+    -webkit-text-stroke: 49px #FFFBFF;
+    color: #00B2FF;
+    letter-spacing: -1px;
+    paint-order: stroke fill;
+    text-shadow: 15px 15px 50px rgb(0, 0, 0);
+}
+
+h2{ 
+    text-align: center;
+    font-size: 125px;
+    font-family: 'Lilita One', helvetica, arial;
+    color: #fff;
+    letter-spacing: -1px;
+    text-shadow: 5px 5px 5px #00000075;
+    line-height: 120px;
+}
+
+.actionbuttondiv{
+    width: 85%;
+    background-color: #FFFBFF;
+    color: #FE7C0B;
+    font-size: 70px;
+    text-align: center;
+    padding: 30px 0 17px 0;
+    font-family: 'Lilita One', helvetica, arial;
+    margin: 60px auto 0 auto;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 40px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: -5px;
+}
+
+.actionbuttondiv:hover, .actionbuttondiv:active, {
+    background-color: #FE7C0B;
+    color: #FFFBFF;
+}
+
+
+.dice{
+    text-align: center;
+    margin-bottom: 67px;
+    display: inline-table;
+    width: 100%;
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+      filter: drop-shadow(0px 0px 21px #22222250);
+}
+
+.notice{
+    font-size: 50px;
+    text-align: center;
+    color: #fff;
+    margin-top: -54px;
+}
+
+.player-form{
+    width: 85%;
+    background-color: #FFFBFF;
+    font-size: 70px;
+    text-align: center;
+    padding: 30px 0 17px 0;
+    font-family: 'Lilita One', helvetica, arial;
+    margin: 30px auto 0 auto;
+      margin-top: 30px;
+      margin-right: auto;
+      margin-bottom: 0px;
+      margin-left: auto;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 40px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: -5px;
+    display: table;
+    border-style: none;
+}
+
+.player-form-btn{
+    width: 85%;
+    background-color: #FFFBFF;
+    color: #FE7C0B;
+    font-size: 70px;
+    text-align: center;
+    padding: 30px 0 17px 0;
+    font-family: 'Lilita One', helvetica, arial;
+    margin: 30px auto 0 auto;
+      margin-top: 30px;
+      margin-right: auto;
+      margin-bottom: 0px;
+      margin-left: auto;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 40px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: -5px;
+    display: table;
+    border-style: none;
+
+}

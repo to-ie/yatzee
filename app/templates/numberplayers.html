@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>How many people are playing?</h2>
+
+
+    <a href="{{ url_for('nametheplayers') }}" class="actionbutton">
+        <div class="actionbuttondiv">2 players</div>
+    </a>
+
+    <a href="{{ url_for('nametheplayers') }}" class="actionbutton">
+        <div class="actionbuttondiv">3 players</div>
+    </a>
+
+    <a href="{{ url_for('nametheplayers') }}" class="actionbutton">
+        <div class="actionbuttondiv">4 players</div>
+    </a>
+
+    <a href="{{ url_for('nametheplayers') }}" class="actionbutton">
+        <div class="actionbuttondiv">5 players</div>
+    </a>
+
+{% endblock %}

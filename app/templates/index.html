@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hi, {{ user.username }}!</h1>
-    {% for post in posts %}
-    <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div>
-    {% endfor %}
+    <h1>Yatzee</h1>
+    <div class="dice">
+        <img src="static/img/dice.png">
+    </div>
+    <a href="{{ url_for('numberplayers') }}" class="actionbutton">
+        <div class="actionbuttondiv">New game</div>
+    </a>
+
+    <a href="#" class="actionbutton">
+        <div class="actionbuttondiv">Continue game</div>
+    </a>
+
 {% endblock %}

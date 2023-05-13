@@ -2,8 +2,11 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
 
-class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('Remember Me')
-    submit = SubmitField('Sign In')
+class PlayersForm(FlaskForm):
+    player1 = StringField('Player 1', validators=[DataRequired()])
+    player2 = StringField('Player 2', validators=[DataRequired()])
+    player3 = StringField('Player 3', validators=[DataRequired()])
+    player4 = StringField('Player 4', validators=[DataRequired()])
+    player5 = StringField('Player 5', validators=[DataRequired()])
+    submit = SubmitField("Let's play!")
+
