@@ -4,10 +4,11 @@ A quick and dirty app for keeping yatzee scores.
 <br>Project started on 20230513. 
 
 ## Reminders
-to activate the virtual environment:`source venv/bin/activate` 
+Activate the virtual environment:`source venv/bin/activate` 
 
-Database:
+Updating database:
 ```
 flask db migrate -m "posts table"
 flask db upgrade
 ```
+
