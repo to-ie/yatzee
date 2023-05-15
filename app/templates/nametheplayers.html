@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <div class="back">
+        <a href="{{ url_for('numberplayers') }}">
+            <img src="/static/img/back.png">
+        </a>
+    </div>
+
     <h2>What are your names?</h2>
     
     <div class=notice>
@@ -20,24 +26,49 @@
         {% for error in form.player2.errors %}
         <span class="alert">[{{ error }}]</span>
         {% endfor %}
+        <div class="hideme">
 
-        {{ form.player3(size=32, class_='player-form', placeholder="Player 3") }}<br>
-        {% for error in form.player3.errors %}
-        <span class="alert">[{{ error }}]</span>
-        {% endfor %}
+        {% if numberplayers == '3' %}
 
-        {{ form.player4(size=32, class_='player-form', placeholder="Player 4") }}<br>
-        {% for error in form.player4.errors %}
-        <span class="alert">[{{ error }}]</span>
-        {% endfor %}
+            {{ form.player3(size=32, class_='player-form', placeholder="Player 3") }}<br>
+            {% for error in form.player3.errors %}
+            <span class="alert">[{{ error }}]</span>
+            {% endfor %}
+    
+        {% elif numberplayers == '4' %}
 
-        {{ form.player5(size=32, class_='player-form', placeholder="Player 5") }}<br>
-        {% for error in form.player5.errors %}
-        <span class="alert">[{{ error }}]</span>
-        {% endfor %}
+            {{ form.player3(size=32, class_='player-form', placeholder="Player 3") }}<br>
+            {% for error in form.player3.errors %}
+            <span class="alert">[{{ error }}]</span>
+            {% endfor %}
+            
+            {{ form.player4(size=32, class_='player-form', placeholder="Player 4") }}<br>
+            {% for error in form.player4.errors %}
+            <span class="alert">[{{ error }}]</span>
+            {% endfor %}
+
+        {% elif numberplayers == '5' %}
+            {{ form.player3(size=32, class_='player-form', placeholder="Player 3") }}<br>
+            {% for error in form.player3.errors %}
+            <span class="alert">[{{ error }}]</span>
+            {% endfor %}
+            
+            {{ form.player4(size=32, class_='player-form', placeholder="Player 4") }}<br>
+            {% for error in form.player4.errors %}
+            <span class="alert">[{{ error }}]</span>
+            {% endfor %}
+
+            {{ form.player5(size=32, class_='player-form', placeholder="Player 5") }}<br>
+            {% for error in form.player5.errors %}
+            <span class="alert">[{{ error }}]</span>
+            {% endfor %}
+
+        {% endif %}
+        
 
         {{ form.submit(class_='player-form-btn') }}
 
     </form>
+
 
 {% endblock %}

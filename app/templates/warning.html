@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="back">
+        <a href="{{ url_for('index') }}">
+            <img src="/static/img/back.png">
+        </a>
+    </div>
+
+    <h2>You are about to erase the current game. Are you sure you want to proceed?</h2>
+
+    <a href="{{ url_for('index') }}" class="actionbutton">
+        <div class="actionbuttondiv">No, go back!</div>
+    </a>
+
+    <a href="{{ url_for('erasegame') }}" class="actionbutton">
+        <div class="actionbuttondiv">Yep</div>
+    </a>
+
+{% endblock %}
