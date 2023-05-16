@@ -35,7 +35,7 @@ def nametheplayers(numberplayers):
             playerfive = form.player5.data)
         db.session.add(game)
         db.session.commit()
-        return redirect('/index')
+        return redirect('/score')
 
     return render_template('nametheplayers.html', title='What are they called?', form=form, numberplayers=numberplayers)
 
@@ -48,3 +48,6 @@ def reset():
     db.session.commit()
     return redirect(url_for('numberplayers'))
 
+@app.route('/score')
+def score():
+    return render_template('score.html', title='Score')

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="warningsign">
+		<img src="/static/img/warning.png">
+	</div>
+    <h2>Page not found</h2>
+    <div class=notice>
+        How did you end up here...<br><br>
+    </div>
+
+    <a href="{{ url_for('index') }}" class="actionbutton">
+        <div class="actionbuttondiv">Go back</div>
+    </a>
+
+{% endblock %}

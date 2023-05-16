@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="warningsign">
+		<img src="/static/img/warning.png">
+	</div>
+    <h2>Whoops</h2>
+    <div class=notice>
+        Something has gone horribly wrong. Let's go back...<br><br>
+    </div>
+
+    <a href="{{ url_for('index') }}" class="actionbutton">
+        <div class="actionbuttondiv">Go back</div>
+    </a>
+
+{% endblock %}
