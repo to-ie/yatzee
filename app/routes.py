@@ -42,7 +42,6 @@ def nametheplayers(numberplayers):
 
 @app.route('/reset')
 def reset():
-    # clear the game db.
     game = Game.query.all()
     for g in game:
         db.session.delete(g)
