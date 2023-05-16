@@ -7,13 +7,17 @@
         </a>
     </div>
 
-    <h2>You are about to erase the current game. Are you sure you want to proceed?</h2>
+    <h2>There is a game in progress.</h2>
+    <div class=notice>
+        Do you want to erase it? <br>
+        All progress will be lost.<br><br>
+    </div>
 
     <a href="{{ url_for('index') }}" class="actionbutton">
         <div class="actionbuttondiv">No, go back!</div>
     </a>
 
-    <a href="{{ url_for('erasegame') }}" class="actionbutton">
+    <a href="{{ url_for('reset') }}" class="actionbutton">
         <div class="actionbuttondiv">Yep</div>
     </a>
 

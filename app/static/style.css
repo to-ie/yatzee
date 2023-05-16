@@ -89,7 +89,9 @@ h2{
     letter-spacing: -5px;
     display: table;
     border-style: none;
+    outline:none!important
 }
+
 
 .player-form-btn{
     width: 85%;
