@@ -83,6 +83,16 @@
 			</div>
 		</div>
 		<div class="row-dark">
+			<div class="score-type">
+				<p class="bonustitle">bonus section</p>
+
+			</div>
+			<div class="inputscore">
+				<p class="bonustotal">total so far: 42</p>
+			</div>
+			<div class="commentscore">
+				<p>63 points or over</p>
+			</div>
 		</div>
 	</div>
 
@@ -90,7 +100,7 @@
 		<h4>Lower</h4>
 		<div class="row-dark">
 			<div class="score-type">
-				<img src="/static/img/1.png">
+				<img src="/static/img/3x.png">
 			</div>
 			<div class="inputscore">
 				<input type="text" id="fname" name="fname">
@@ -101,7 +111,7 @@
 		</div>
 		<div class="row-light">
 			<div class="score-type">
-				<img src="/static/img/1.png">
+				<img src="/static/img/4x.png">
 
 			</div>
 			<div class="inputscore">
@@ -113,19 +123,19 @@
 		</div>
 		<div class="row-dark">
 			<div class="score-type">
-				<img src="/static/img/1.png">
+				<img src="/static/img/house.png">
 
 			</div>
 			<div class="inputscore">
 				<input type="text" id="fname" name="fname">
 			</div>
-			<div class="commentscore">
+			<div class="commentscore"><br>
 				<p>full house</p>
 			</div>
 		</div>
 		<div class="row-light">
 			<div class="score-type">
-				<img src="/static/img/1.png">
+				<img src="/static/img/small.png">
 
 			</div>
 			<div class="inputscore">
@@ -137,7 +147,7 @@
 		</div>
 		<div class="row-dark">
 			<div class="score-type">
-				<img src="/static/img/1.png">
+				<img src="/static/img/large.png">
 
 			</div>
 			<div class="inputscore">
@@ -149,25 +159,25 @@
 		</div>
 		<div class="row-light">
 			<div class="score-type">
-				<img src="/static/img/1.png">
+				<img src="/static/img/yatzee.png">
 
 			</div>
 			<div class="inputscore">
 				<input type="text" id="fname" name="fname">
 			</div>
-			<div class="commentscore">
+			<div class="commentscore"><br>
 				<p>yatzee</p>
 			</div>
 		</div>
 		<div class="row-dark">
 			<div class="score-type">
-				<img src="/static/img/1.png">
+				<img src="/static/img/chance.png">
 
 			</div>
 			<div class="inputscore">
 				<input type="text" id="fname" name="fname">
 			</div>
-			<div class="commentscore">
+			<div class="commentscore"><br>
 				<p>chance</p>
 			</div>
 		</div>
@@ -175,14 +185,17 @@
 
 	</div>
 </div>
-
-    <h2>Whoops</h2>
-    <div class=notice>
-        Something has gone horribly wrong. Let's go back...<br><br>
-    </div>
-
     <a href="{{ url_for('index') }}" class="actionbutton">
-        <div class="actionbuttondiv">Go back</div>
+        <div class="actionbuttondiv">Next player</div>
     </a>
+    <div class="currentscore">
+		<p class="cstitle">Current score:</p>
+		<p class="csplayer">Player name: 500 points</p>
+		<p class="csplayer">Player name: 500 points</p>
+		<p class="csplayer">Player name: 500 points</p>
+		<p class="csplayer">Player name: 500 points</p>
+		<p class="csplayer">Player name: 500 points</p>
+	</div>
+
 
 {% endblock %}

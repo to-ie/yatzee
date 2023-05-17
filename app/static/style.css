@@ -3,6 +3,10 @@ body{
     font-family: 'Lato', sans-serif;
 }
 
+a{
+    text-decoration: none;
+}
+
 h1{ 
     text-align: center;
     font-size: 220px;
@@ -172,10 +176,7 @@ h4{
     display: block;
     margin-bottom: 135px;
 }
-.header{
-    
 
-}
 
 .col1{
     width: 50%;
@@ -226,6 +227,10 @@ h4{
     box-shadow: 2px -4px 117px -59px rgba(0,0,0,0.25) inset;
     -webkit-box-shadow: 2px -4px 117px -59px rgba(0,0,0,0.25) inset;
     -moz-box-shadow: 2px -4px 117px -59px rgba(0,0,0,0.25) inset;
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Lilita One', helvetica, arial;
+    color: #1e1e1e;
 }
 
 .commentscore{
@@ -239,4 +244,42 @@ h4{
     font-family: 'Lilita One', helvetica, arial;
     color: #FFF;
     align-items: center;
+}
+
+.currentscore{
+    background-color: #ffffff30;
+    margin: 40px 40px 0 40px;
+    padding: 35px;
+}
+
+.cstitle{
+    font-size: 60px;
+    font-family: 'Lilita One', helvetica, arial;
+    color: #fff;
+    letter-spacing: -1px;
+    text-shadow: 5px 5px 5px #00000075;
+    margin: 0;
+}
+
+.csplayer{
+    font-size: 40px;
+    font-family: 'Lilita One', helvetica, arial;
+    color: #0080B0;
+    letter-spacing: -1px;
+    margin: 15px 0;
+}
+
+.bonustitle{
+    text-align: center;
+    font-size: 31px;
+    font-family: 'Lilita One', helvetica, arial;
+    color: #FFF;
+
+}
+
+.bonustotal{
+    text-align: center;
+    font-size: 31px;
+    font-family: 'Lilita One', helvetica, arial;
+    color: #FFFFFF80;
 }
