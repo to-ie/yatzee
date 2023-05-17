@@ -83,6 +83,23 @@ def score():
     subtotalupper = currentplayer.subtotalupper
 
     
+    # check for end of game
+    if numberofplayers ==2:
+        if playerone.full == 'yes' and playertwo.full=='yes':
+            return redirect(url_for('end'))
+
+
+    elif numberofplayers==3:
+        if playerone.full == 'yes' and playertwo.full=='yes' and playerthree.full=='yes':
+            return redirect(url_for('end'))
+
+    elif numberofplayers==4:
+        if playerone.full == 'yes' and playertwo.full=='yes' and playerthree.full=='yes' and playerfour.full=='yes':
+            return redirect(url_for('end'))
+
+    elif numberofplayers==5:
+        if playerone.full == 'yes' and playertwo.full=='yes' and playerthree.full=='yes' and playerfour.full=='yes' and playerfive.full =='yes':
+            return redirect(url_for('end'))
 
     # get totals from all players
     totp1 = playerone.total
@@ -148,47 +165,52 @@ def score():
         # db.session.commit()
 
 
+        #pull scores
+        ones = currentplayer.ones 
+        twos = currentplayer.twos 
+        threes = currentplayer.threes 
+        fours = currentplayer.fours
+        fives = currentplayer.fives
+        sixes = currentplayer.sixes
+        threex = currentplayer.threex 
+        fourx = currentplayer.fourx 
+        fullhouse = currentplayer.fullhouse 
+        small = currentplayer.small
+        large = currentplayer.large
+        yahtzee = currentplayer.yahtzee
+        chance = currentplayer.chance 
+        
+        # check for full card and mark as full
+        if ones and twos and threes and fours and fives and sixes and threex and fourx and \
+            fullhouse and small and large and yahtzee and chance:
+            currentplayer.full = 'yes'
 
         # deal with empty strings
-        ones = currentplayer.ones 
         if not ones:
             ones='0'
-        twos = currentplayer.twos 
         if not twos:
             twos = '0'   
-        threes = currentplayer.threes 
         if not threes:
             threes = '0'   
-        fours = currentplayer.fours
         if not fours:
             fours = '0'   
-        fives = currentplayer.fives
         if not fives:
             fives = '0'   
-        sixes = currentplayer.sixes
         if not sixes: 
             sixes = '0'  
 
-
-        threex = currentplayer.threex 
         if not threex:
             threex='0'
-        fourx = currentplayer.fourx 
         if not fourx:
             fourx = '0'   
-        fullhouse = currentplayer.fullhouse 
         if not fullhouse:
             fullhouse = '0'   
-        small = currentplayer.small
         if not small:
             small = '0'   
-        large = currentplayer.large
         if not large:
             large = '0'   
-        yahtzee = currentplayer.yahtzee
         if not yahtzee: 
             yahtzee = '0'  
-        chance = currentplayer.chance 
         if not chance:
             chance='0'
 
@@ -217,9 +239,10 @@ def score():
 
         db.session.commit()
 
+
+
         return redirect(url_for('score'))
 
-        # return render_template('score.html', title='Score', currentplayer=currentplayer, form=form)
 
 
     return render_template('score.html', title='Score', currentplayer=currentplayer, form=form,
@@ -235,5 +258,24 @@ def pause():
         nextplayer = 3
     currentgame.nextplayer = nextplayer
     db.session.commit()
-
     return redirect(url_for('index'))
+
+@app.route('/end')
+def end():
+    # get all players
+    playerone = Score.query.filter_by(playerid = 1).first()
+    playertwo = Score.query.filter_by(playerid = 2).first()
+    playerthree = Score.query.filter_by(playerid = 3).first()
+    playerfour = Score.query.filter_by(playerid = 4).first()
+    playerfive = Score.query.filter_by(playerid = 5).first()
+
+    # get totals from all players
+    totp1 = playerone.total
+    totp2 = playertwo.total
+    totp3 = playerthree.total
+    totp4 = playerfour.total
+    totp5 = playerfive.total
+
+    return render_template('end.html', playerone=playerone,playertwo=playertwo,playerthree=playerthree,
+        playerfour=playerfour, playerfive=playerfive, totp1=totp1, totp2=totp2,totp3=totp3, totp4=totp4,
+        totp5=totp5)

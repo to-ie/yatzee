@@ -25,7 +25,7 @@ class Score(db.Model):
     fours = db.Column(db.String(64), index=True)
     fives = db.Column(db.String(64), index=True)
     sixes = db.Column(db.String(64), index=True)
-    subtotalupper = db.Column(db.Integer(), index=True)
+    subtotalupper = db.Column(db.Integer(), index=True, default=0)
     bonus = db.Column(db.Integer(), index=True, default=0)
     totaluppersection = db.Column(db.Integer(), index=True)
 
@@ -38,6 +38,8 @@ class Score(db.Model):
     chance = db.Column(db.String(64), index=True)
     totallower = db.Column(db.Integer(), index=True)
     
+    full = db.Column(db.String(64), index=True, default='no')
+
     total = db.Column(db.Integer(), index=True)
 
     def __repr__(self):

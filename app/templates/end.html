@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="score-table">
+	<div class='header'>
+		<div class="player">
+			<h3>FINAL SCORE</h3>
+		</div>
+	</div>
+
+	<div class="break"></div>
+	<div class="row-dark">
+		<div class="col1">
+		<p class="final-name">{{ playerone.name }}</p>
+		</div>
+		<div class="col2">
+			<p class="final-score">{{ totp1 }} points</p>
+		</div>
+	</div>
+
+	<div class="row-light">
+		<div class="col1">
+		<p class="final-name">{{ playertwo.name }}</p>
+		</div>
+		<div class="col2">
+			<p class="final-score">{{ totp2 }} points</p>
+		</div>
+	</div>
+
+	{% if playerthree.name %}
+	<div class="row-dark">
+		<div class="col1">
+		<p class="final-name">{{ playerthree.name }}</p>
+		</div>
+		<div class="col2">
+			<p class="final-score">{{ totp3 }} points</p>
+		</div>
+	</div>
+	{% endif %}
+
+	{% if playerfour.name %}
+	<div class="row-light">
+		<div class="col1">
+		<p class="final-name">{{ playerfour.name }}</p>
+		</div>
+		<div class="col2">
+			<p class="final-score">{{ totp4 }} points</p>
+		</div>
+	</div>
+	{% endif %}
+
+	{% if playerfive.name %}
+	<div class="row-dark">
+		<div class="col1">
+		<p class="final-name">{{ playerfive.name }}</p>
+		</div>
+		<div class="col2">
+			<p class="final-score">{{ totp5 }} points</p>
+		</div>
+	</div>
+	{% endif %}
+
+	<a href="{{ url_for('index') }}" class="actionbutton">
+	    <div class="actionbuttondiv">Back to home page</div>
+	</a>
+
+{% endblock %}

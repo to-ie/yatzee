@@ -325,3 +325,20 @@ h4{
 .green p{
     color: #6bd595  !important;
 }
+
+.final-name{
+    text-align: left;
+    font-size: 60px;
+    font-family: 'Lilita One', helvetica, arial;
+    color: #FFF;
+    margin: 30px;
+    text-transform: uppercase;
+}
+
+.final-score{
+    text-align: right;
+    font-size: 60px;
+    font-family: 'Lilita One', helvetica, arial;
+    color: #ffffff80;
+    margin: 30px;
+}
