@@ -1,22 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <div class="score-table">
 	<div class='header'>
 		<div class="player">
-			<h3>Name of player</h3>
+			<h3>{{ currentplayer.name.upper() }}</h3>
 		</div>
 	</div>
+
+
+	<form action="" method="post">
+	    {{ form.hidden_tag() }}
+	    
+
 	<div class="break"></div>
 	<div class="col1">
 		<h4>Upper</h4>
 		<div class="row-dark">
 			<div class="score-type">
 				<img src="/static/img/1.png">
-
 			</div>
 			<div class="inputscore">
-				<input type="text" id="fname" name="fname">
+				{{ form.ones(size=10, class_='commentscore') }}
 			</div>
 			<div class="commentscore">
 				<p>sum of ones</p>
@@ -28,7 +34,7 @@
 
 			</div>
 			<div class="inputscore">
-				<input type="text" id="fname" name="fname">
+				{{ form.twos(size=10, class_='commentscore') }}
 			</div>
 			<div class="commentscore">
 				<p>sum of twos</p>
@@ -40,7 +46,7 @@
 
 			</div>
 			<div class="inputscore">
-				<input type="text" id="fname" name="fname">
+				{{ form.threes(size=10, class_='commentscore') }}
 			</div>
 			<div class="commentscore">
 				<p>sum of threes</p>
@@ -52,7 +58,7 @@
 
 			</div>
 			<div class="inputscore">
-				<input type="text" id="fname" name="fname">
+				{{ form.fours(size=10, class_='commentscore') }}
 			</div>
 			<div class="commentscore">
 				<p>sum of fours</p>
@@ -64,7 +70,7 @@
 
 			</div>
 			<div class="inputscore">
-				<input type="text">
+				{{ form.fives(size=10, class_='commentscore') }}
 			</div>
 			<div class="commentscore">
 				<p>sum of fives</p>
@@ -76,7 +82,7 @@
 
 			</div>
 			<div class="inputscore">
-				<input type="text" id="fname" name="fname">
+				{{ form.sixes(size=10, class_='commentscore') }}
 			</div>
 			<div class="commentscore">
 				<p>sum of sixes</p>
@@ -85,10 +91,18 @@
 		<div class="row-dark">
 			<div class="score-type">
 				<p class="bonustitle">bonus section</p>
-
 			</div>
-			<div class="inputscore">
-				<p class="bonustotal">total so far: 42</p>
+			{% if subtotalupper > 62 %}
+			<div class="green">
+				<div class="inputscore">
+					<p class="bonustotal">+35&nbsp &nbsp<br>points</p>
+				</div>
+			{% else %}
+			<div>
+				<div class="inputscore">
+					<p class="bonustotal">total so far: {{ currentplayer.subtotalupper}}</p>
+				</div>
+			{% endif %}
 			</div>
 			<div class="commentscore">
 				<p>63 points or over</p>
@@ -103,7 +117,7 @@
 				<img src="/static/img/3x.png">
 			</div>
 			<div class="inputscore">
-				<input type="text" id="fname" name="fname">
+				{{ form.threex(size=10, class_='commentscore') }}
 			</div>
 			<div class="commentscore">
 				<p>three of a kind</p>
@@ -115,7 +129,7 @@
 
 			</div>
 			<div class="inputscore">
-				<input type="text" id="fname" name="fname">
+				{{ form.fourx(size=10, class_='commentscore') }}
 			</div>
 			<div class="commentscore">
 				<p>four of a kind</p>
@@ -127,7 +141,7 @@
 
 			</div>
 			<div class="inputscore">
-				<input type="text" id="fname" name="fname">
+				{{ form.fullhouse(size=10, class_='commentscore', placeholder='25') }}
 			</div>
 			<div class="commentscore"><br>
 				<p>full house</p>
@@ -139,7 +153,7 @@
 
 			</div>
 			<div class="inputscore">
-				<input type="text" id="fname" name="fname">
+				{{ form.small(size=10, class_='commentscore', placeholder='30') }}
 			</div>
 			<div class="commentscore">
 				<p>small straight</p>
@@ -151,7 +165,7 @@
 
 			</div>
 			<div class="inputscore">
-				<input type="text" id="fname" name="fname">
+				{{ form.large(size=10, class_='commentscore', placeholder='40') }}
 			</div>
 			<div class="commentscore">
 				<p>large straight</p>
@@ -163,10 +177,10 @@
 
 			</div>
 			<div class="inputscore">
-				<input type="text" id="fname" name="fname">
+				{{ form.yahtzee(size=10, class_='commentscore', placeholder='50') }}
 			</div>
 			<div class="commentscore"><br>
-				<p>yatzee</p>
+				<p>yahtzee</p>
 			</div>
 		</div>
 		<div class="row-dark">
@@ -175,7 +189,7 @@
 
 			</div>
 			<div class="inputscore">
-				<input type="text" id="fname" name="fname">
+				{{ form.chance(size=10, class_='commentscore') }}
 			</div>
 			<div class="commentscore"><br>
 				<p>chance</p>
@@ -185,17 +199,29 @@
 
 	</div>
 </div>
-    <a href="{{ url_for('index') }}" class="actionbutton">
-        <div class="actionbuttondiv">Next player</div>
-    </a>
+	<div class="actionbutton">
+		{{ form.submit(class_='actionbuttondiv') }}
+	</div>.
+	</form>
+
     <div class="currentscore">
 		<p class="cstitle">Current score:</p>
-		<p class="csplayer">Player name: 500 points</p>
-		<p class="csplayer">Player name: 500 points</p>
-		<p class="csplayer">Player name: 500 points</p>
-		<p class="csplayer">Player name: 500 points</p>
-		<p class="csplayer">Player name: 500 points</p>
+		<p class="csplayer">{{ playerone.name }}: {{totp1}} points</p>
+		<p class="csplayer">{{ playertwo.name }}: {{totp2}} points</p>
+		{% if playerthree.name %}
+		<p class="csplayer">{{ playerthree.name }}: {{totp3}} points</p>
+		{% endif %}
+		{% if playerfour.name %}
+		<p class="csplayer">{{ playerfour.name }}: {{totp4}} points</p>
+		{% endif %}
+		{% if playerfive.name %}
+		<p class="csplayer">{{ playerfive.name }}: {{totp5}} points</p>
+		{% endif %}
 	</div>
+
+	<a href="{{ url_for('pause') }}" class="actionbuttonpause">
+	    <div class="actionbuttonpausediv">Pause game</div>
+	</a>
 
 
 {% endblock %}

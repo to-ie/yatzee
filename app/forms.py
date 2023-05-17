@@ -10,3 +10,21 @@ class PlayersForm(FlaskForm):
     player5 = StringField('Player 5')
     submit = SubmitField("Let's play!")
 
+
+class ScoreForm(FlaskForm):
+    ones = StringField()
+    twos = StringField()
+    threes = StringField()
+    fours = StringField()
+    fives = StringField()
+    sixes = StringField()
+
+    threex = StringField()
+    fourx = StringField()
+    fullhouse = StringField()
+    small = StringField()
+    large = StringField()
+    yahtzee = StringField()
+    chance = StringField()
+
+    submit = SubmitField("Next player")
