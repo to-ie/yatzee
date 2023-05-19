@@ -215,8 +215,7 @@ def score():
             chance='0'
 
         # subtotal upper section
-        subtotalupper = int(float(ones)) + int(float(twos)) + int(float(threes)) + int(float(fours)) \
-             + int(float(fives)) + int(float(sixes))
+        subtotalupper = int(float(ones)) + int(float(twos)) + int(float(threes)) + int(float(fours)) + int(float(fives)) + int(float(sixes))
         currentplayer.subtotalupper = subtotalupper
         
         # bonus upper section
