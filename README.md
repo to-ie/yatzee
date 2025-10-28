@@ -135,4 +135,3 @@ Contributions and PRs welcome.
 ## License
 
 This project is released under the **GPL‑3.0** license.
-
