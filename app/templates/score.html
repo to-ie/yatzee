@@ -19,7 +19,7 @@
 		<h4>Upper</h4>
 		<div class="row-dark">
 			<div class="score-type">
-				<img src="/static/img/1.png">
+				<img src="/static/img/1.png" alt="Ones">
 			</div>
 			<div class="inputscore">
 				{{ form.ones(size=10, class_='commentscore', type="number") }}
@@ -30,7 +30,7 @@
 		</div>
 		<div class="row-light">
 			<div class="score-type">
-				<img src="/static/img/2.png">
+				<img src="/static/img/2.png" alt="Twos">
 
 			</div>
 			<div class="inputscore">
@@ -42,7 +42,7 @@
 		</div>
 		<div class="row-dark">
 			<div class="score-type">
-				<img src="/static/img/3.png">
+				<img src="/static/img/3.png" alt="Threes">
 
 			</div>
 			<div class="inputscore">
@@ -54,7 +54,7 @@
 		</div>
 		<div class="row-light">
 			<div class="score-type">
-				<img src="/static/img/4.png">
+				<img src="/static/img/4.png" alt="Fours">
 
 			</div>
 			<div class="inputscore">
@@ -66,7 +66,7 @@
 		</div>
 		<div class="row-dark">
 			<div class="score-type">
-				<img src="/static/img/5.png">
+				<img src="/static/img/5.png" alt="Fives">
 
 			</div>
 			<div class="inputscore">
@@ -78,7 +78,7 @@
 		</div>
 		<div class="row-light">
 			<div class="score-type">
-				<img src="/static/img/6.png">
+				<img src="/static/img/6.png" alt="Sixes">
 
 			</div>
 			<div class="inputscore">
@@ -88,21 +88,16 @@
 				<p>sum of sixes</p>
 			</div>
 		</div>
-		<div class="row-dark">
+		<div class="row-dark bonus-row">
 			<div class="score-type">
 				<p class="bonustitle">bonus section</p>
 			</div>
-			{% if subtotalupper > 62 %}
-			<div class="green">
-				<div class="inputscore">
-					<p class="bonustotal">+35&nbsp &nbsp<br>points</p>
-				</div>
-			{% else %}
-			<div>
-				<div class="inputscore">
-					<p class="bonustotal">total so far: {{ currentplayer.subtotalupper}}</p>
-				</div>
-			{% endif %}
+			<div class="inputscore">
+				{% if subtotalupper > 62 %}
+				<p class="bonustotal green">+35<br>points</p>
+				{% else %}
+				<p class="bonustotal">total so far: {{ currentplayer.subtotalupper }}</p>
+				{% endif %}
 			</div>
 			<div class="commentscore">
 				<p>63 points or over</p>
@@ -114,7 +109,7 @@
 		<h4>Lower</h4>
 		<div class="row-dark">
 			<div class="score-type">
-				<img src="/static/img/3x.png">
+				<img src="/static/img/3x.png" alt="Three of a kind">
 			</div>
 			<div class="inputscore">
 				{{ form.threex(size=10, class_='commentscore', type="number") }}
@@ -125,7 +120,7 @@
 		</div>
 		<div class="row-light">
 			<div class="score-type">
-				<img src="/static/img/4x.png">
+				<img src="/static/img/4x.png" alt="Four of a kind">
 
 			</div>
 			<div class="inputscore">
@@ -137,7 +132,7 @@
 		</div>
 		<div class="row-dark">
 			<div class="score-type">
-				<img src="/static/img/house.png">
+				<img src="/static/img/house.png" alt="Full house">
 
 			</div>
 			<div class="inputscore">
@@ -149,7 +144,7 @@
 		</div>
 		<div class="row-light">
 			<div class="score-type">
-				<img src="/static/img/small.png">
+				<img src="/static/img/small.png" alt="Small straight">
 
 			</div>
 			<div class="inputscore">
@@ -161,7 +156,7 @@
 		</div>
 		<div class="row-dark">
 			<div class="score-type">
-				<img src="/static/img/large.png">
+				<img src="/static/img/large.png" alt="Large straight">
 
 			</div>
 			<div class="inputscore">
@@ -173,7 +168,7 @@
 		</div>
 		<div class="row-light">
 			<div class="score-type">
-				<img src="/static/img/yatzee.png">
+				<img src="/static/img/yatzee.png" alt="Yahtzee">
 
 			</div>
 			<div class="inputscore">
@@ -185,7 +180,7 @@
 		</div>
 		<div class="row-dark">
 			<div class="score-type">
-				<img src="/static/img/chance.png">
+				<img src="/static/img/chance.png" alt="Chance">
 
 			</div>
 			<div class="inputscore">
@@ -201,7 +196,7 @@
 </div>
 	<div class="actionbutton">
 		{{ form.submit(class_='actionbuttondiv') }}
-	</div>.
+	</div>
 	</form>
 
     <div class="currentscore">

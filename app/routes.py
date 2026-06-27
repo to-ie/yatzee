@@ -275,6 +275,10 @@ def end():
     totp4 = playerfour.total
     totp5 = playerfive.total
 
+    # winning score (only players who were actually named count)
+    active = [p for p in (playerone, playertwo, playerthree, playerfour, playerfive) if p.name]
+    winnerscore = max((p.total or 0) for p in active) if active else 0
+
     return render_template('end.html', playerone=playerone,playertwo=playertwo,playerthree=playerthree,
         playerfour=playerfour, playerfive=playerfive, totp1=totp1, totp2=totp2,totp3=totp3, totp4=totp4,
-        totp5=totp5)
+        totp5=totp5, winnerscore=winnerscore)

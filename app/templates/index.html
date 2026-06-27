@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Yahtzee</h1>
-    <p class="tag">score-card</p>
+    <div class="title-block">
+        <h1>Yahtzee</h1>
+        <p class="tag">score-card</p>
+    </div>
     <div class="dice">
-        <img src="static/img/dice.png">
+        <img src="static/img/dice.png" alt="Dice">
     </div>
     <a href="{{ url_for('numberplayers') }}" class="actionbutton">
         <div class="actionbuttondiv">New game</div>
