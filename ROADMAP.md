@@ -31,6 +31,17 @@ ordered roughly by leverage.
 - Decoupled `end.html` from the `col1`/`col2`/`row-*` classes it was sharing
   (with conflicting meaning) with the scorecard.
 
+### Test safety net (pre-refactor)
+- Added `tests/` (pytest) — black-box integration tests through the routes
+  covering the scoring math (subtotal, bonus boundary at 62/63, empty = 0,
+  lower section) and game flow (turn rotation + wrap, full detection,
+  redirect to `/end`). 10 tests, all green.
+- `requirements-dev.txt` pins `pytest`. Run with `python -m pytest`.
+- Discovered behaviour to preserve/fix in the refactor: **a score submit
+  overwrites the player's entire sheet**, so the app depends on the GET
+  request pre-filling the form to round-trip prior values. The refactor
+  should store per-category and update only what changed.
+
 ---
 
 ## 🔜 Next up
