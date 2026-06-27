@@ -70,19 +70,17 @@ ordered roughly by leverage.
   and do **not** save or advance the turn.
 - Added `tests/test_validation.py` (7 tests). Full suite: 17 passing.
 
----
-
-## 🔜 Next up
-
-### 1. Correctness / UX
-- **"Overwrite whole sheet" footgun** — a submit writes every category from
-  the form, relying on the GET pre-fill to round-trip prior values. Consider
-  updating only changed categories (and an explicit scratch/zero action).
-
-### 2. Engineering hygiene
-- Real `SECRET_KEY` (drop the hardcoded fallback in `config.py`).
-- Regenerate the broken bundled `venv` (or just rely on the documented setup).
-- Wire up or remove the unused flash-message markup in `base.html`.
+### Hardening & hygiene
+- Fixed the "overwrite whole sheet" footgun: a submit now only writes
+  categories that were filled in, so a blank box can't wipe a score entered
+  on an earlier turn (no longer relies on the GET pre-fill for integrity).
+  Pinned by a regression test. Full suite: **18 passing**.
+- Removed the hardcoded `SECRET_KEY` from source — it now comes from the
+  environment, with a random per-process fallback for local dev.
+- The flash-message markup in `base.html` is now actually used (validation
+  errors), and styled.
+- Documented `python -m pytest` and the `SECRET_KEY` / `DATABASE_URL`
+  environment variables in the README.
 
 ---
 

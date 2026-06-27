@@ -69,8 +69,12 @@ def score():
             getattr(form, c).data = getattr(currentplayer, c)
 
     elif form.validate_on_submit():
+        # Only write categories that were actually filled in, so a blank box
+        # never wipes a score entered on an earlier turn.
         for c in CATEGORIES:
-            setattr(currentplayer, c, getattr(form, c).data)
+            value = getattr(form, c).data
+            if value is not None:
+                setattr(currentplayer, c, value)
 
         # advance to the next player, wrapping around
         game.nextplayer = game.nextplayer + 1

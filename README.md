@@ -100,9 +100,22 @@ Open [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in your browser.
 * Configuration lives in `config.py`.
 * Database migrations are in `migrations/`.
 
-### Running formatters/tests
+### Running tests
 
-(If you add tooling later, e.g. `ruff`/`black`/`pytest`, document the commands here.)
+```bash
+pip install -r requirements-dev.txt
+python -m pytest
+```
+
+The suite is black-box integration tests that drive the app through its HTTP
+routes (scoring math, turn flow, validation), so they don't depend on the
+database schema.
+
+### Configuration
+
+* `SECRET_KEY` — set this in the environment for any non-local deployment. If
+  unset, a random key is generated per process (fine for local dev).
+* `DATABASE_URL` — overrides the default local SQLite database.
 
 ---
 

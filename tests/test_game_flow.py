@@ -23,6 +23,17 @@ def test_turn_wraps_back_to_first_player(make_game, score_turn, player):
     assert player(2).chance == 20   # Bob untouched since his turn
 
 
+def test_blank_field_does_not_wipe_an_earlier_score(make_game, score_turn, player):
+    make_game(["Alice", "Bob"])
+    score_turn(ones=3)     # Alice scores her ones
+    score_turn(twos=4)     # Bob's turn
+    score_turn(threes=9)   # Alice again; her ones box is blank in this submit
+
+    p1 = player(1)
+    assert p1.ones == 3    # earlier score survives the blank resubmit
+    assert p1.threes == 9
+
+
 def test_player_marked_full_when_all_categories_entered(
     make_game, score_turn, player, full_sheet
 ):
