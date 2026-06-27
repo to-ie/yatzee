@@ -1,12 +1,19 @@
 from app import app, db
-from flask import render_template, redirect, url_for, request, flash
+from flask import render_template, redirect, url_for, request, flash, session
 from app.forms import PlayersForm, ScoreForm
 from app.models import Game, Player, CATEGORIES
 
 
 def current_game():
-    """The single active game (the app supports one at a time)."""
-    return Game.query.first()
+    """The game belonging to this browser session, or None.
+
+    Each session owns its own game (stored by id in the signed session
+    cookie), so several people can keep separate scorecards at once.
+    """
+    game_id = session.get('game_id')
+    if game_id is None:
+        return None
+    return db.session.get(Game, game_id)
 
 
 @app.route('/')
@@ -38,6 +45,10 @@ def nametheplayers(numberplayers):
             db.session.add(Player(game_id=game.id, playerid=i + 1, name=names[i]))
         db.session.commit()
 
+        # remember this game for the rest of the session (survives restarts)
+        session['game_id'] = game.id
+        session.permanent = True
+
         return redirect(url_for('score'))
 
     return render_template('nametheplayers.html', title='What are they called?',
@@ -46,15 +57,19 @@ def nametheplayers(numberplayers):
 
 @app.route('/reset')
 def reset():
-    for game in Game.query.all():
+    game = current_game()
+    if game:
         db.session.delete(game)   # cascade removes the players
-    db.session.commit()
+        db.session.commit()
+    session.pop('game_id', None)
     return redirect(url_for('numberplayers'))
 
 
 @app.route('/score', methods=['GET', 'POST'])
 def score():
     game = current_game()
+    if game is None:
+        return redirect(url_for('index'))
     players = game.players
     currentplayer = next(p for p in players if p.playerid == game.nextplayer)
 
@@ -99,6 +114,8 @@ def pause():
 @app.route('/end')
 def end():
     game = current_game()
+    if game is None:
+        return redirect(url_for('index'))
     players = game.players
     winnerscore = max((p.total for p in players), default=0)
     return render_template('end.html', players=players, winnerscore=winnerscore)

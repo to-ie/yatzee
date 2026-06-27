@@ -82,6 +82,17 @@ ordered roughly by leverage.
 - Documented `python -m pytest` and the `SECRET_KEY` / `DATABASE_URL`
   environment variables in the README.
 
+### Multi-game via sessions
+- Each browser session now owns its own game: the game id is stored in the
+  signed session cookie (`session['game_id']`), so several people can keep
+  separate scorecards at the same time instead of colliding on one global
+  game. `current_game()` resolves the session's game; `/reset` clears only
+  that session; `/score` and `/end` redirect home when there's no game.
+- Sessions are marked permanent, so a game survives a browser restart (the
+  "Continue game" button resumes it).
+- Added `tests/test_sessions.py` (3 tests: isolation, no-game redirect,
+  scoped reset). Full suite: **21 passing**.
+
 ---
 
 ## 💡 Ideas / nice-to-haves
@@ -96,8 +107,9 @@ ordered roughly by leverage.
 - Stronger confirmation before `/reset` (it wipes the whole game).
 
 ### Multi-game / multi-user
-- Multiple concurrent games via Flask `session` + a game id (today everything
-  is a single global `Game` with `id=1` — a second browser collides).
+- Multiple concurrent games via Flask `session` — **done** (see above).
+- Garbage-collect abandoned games (a session that expires without `/reset`
+  leaves an orphaned game row; add a periodic cleanup or a TTL).
 - Simple auth (magic-link / email-less).
 - Per-player history & stats (high scores, averages).
 
