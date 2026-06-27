@@ -17,7 +17,7 @@ os.environ.setdefault("DATABASE_URL", "sqlite:///" + _db_path)
 os.environ.setdefault("SECRET_KEY", "test-secret")
 
 from app import app as flask_app, db as _db  # noqa: E402
-from app.models import Score  # noqa: E402
+from app.models import Player  # noqa: E402
 
 CATEGORIES = [
     "ones", "twos", "threes", "fours", "fives", "sixes",
@@ -70,7 +70,7 @@ def player(app):
     """Reload a player's Score row fresh from the database by playerid."""
     def _get(pid):
         _db.session.expire_all()
-        return Score.query.filter_by(playerid=pid).first()
+        return Player.query.filter_by(playerid=pid).first()
     return _get
 
 

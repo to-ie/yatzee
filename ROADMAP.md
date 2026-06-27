@@ -42,36 +42,38 @@ ordered roughly by leverage.
   request pre-filling the form to round-trip prior values. The refactor
   should store per-category and update only what changed.
 
+### Data model refactor
+- Replaced the hardcoded `playerone…playerfive` columns and the `Score` table
+  of 13 `String(64)` columns with a proper `Game ──< Player` relationship;
+  category scores are now **nullable integers** (NULL = unfilled).
+- `subtotalupper` / `bonus` / `total` / `full` are **computed properties**, so
+  totals are always current — this fixed the long-standing "totals don't
+  update in real time" bug (verified: an opponent's total shows live on
+  another player's turn).
+- Routes and templates iterate `CATEGORIES` / `game.players` instead of
+  repeating 13 fields and 5 players — `routes.py` dropped from ~280 to ~115
+  lines; the `score()`/`end()` per-player queries and the 4-branch
+  end-of-game check are gone.
+- Removed dead code (unreachable `return` in `numberplayers()`, the
+  meaningless `/pause` logic). Added the Alembic migration
+  `0490a4803d3a_refactor_to_game_player_model`; the full `flask db upgrade`
+  path was verified on a clean database.
+- All 10 behaviour tests still pass.
+
 ---
 
 ## 🔜 Next up
 
-### 1. Data model refactor (highest leverage)
-Replace the hardcoded `playerone…playerfive` columns and 13 `String(64)`
-score columns with proper relations:
+### 1. Correctness / bug fixes
+- **Server-side score validation** — `parse_score()` still does
+  `int(float(...))`, so non-numeric input is an instant 500. Add WTForms
+  validators (per-category ranges) + a friendly flash message.
+- **"Overwrite whole sheet" footgun** — a submit writes every category from
+  the form, relying on the GET pre-fill to round-trip prior values. Consider
+  updating only changed categories (and an explicit scratch/zero action).
 
-```
-Game ──< Player ──< Score   (category enum, integer value, NULL = unfilled)
-```
-
-This collapses ~200 lines of repeated routes/templates into loops and is the
-prerequisite for most other improvements. See `models.py`, and the repeated
-queries in `routes.py` (`score()` / `end()`).
-
-### 2. Correctness / bug fixes
-- **Server-side score validation** — score fields are free-text `StringField`s
-  parsed with `int(float(...))`; any non-numeric input is an instant 500.
-- **Real-time totals** — each player's total is only recomputed on their own
-  turn, so the scoreboard always lags (the `TODO` in `routes.py`).
-- **Unambiguous "filled"** — a scratched 0 is currently indistinguishable from
-  unfilled (fixed naturally by the nullable-integer model above).
-- Remove dead code: unreachable `return` in `numberplayers()`, the
-  meaningless `nextplayer = 3` in `/pause`.
-
-### 3. Engineering hygiene
+### 2. Engineering hygiene
 - Real `SECRET_KEY` (drop the hardcoded fallback in `config.py`).
-- `pytest` suite around the scoring math (bonus, totals, end-of-game) — makes
-  the model refactor safe.
 - Regenerate the broken bundled `venv` (or just rely on the documented setup).
 - Wire up or remove the unused flash-message markup in `base.html`.
 

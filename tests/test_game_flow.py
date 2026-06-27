@@ -19,8 +19,8 @@ def test_turn_wraps_back_to_first_player(make_game, score_turn, player):
     score_turn(chance=22)  # turn 2 -> Bob
     score_turn(chance=33)  # turn 3 -> should wrap back to Alice
 
-    assert player(1).chance == "33"   # third turn landed on Alice
-    assert player(2).chance == "22"   # Bob untouched since his turn
+    assert player(1).chance == 33   # third turn landed on Alice
+    assert player(2).chance == 22   # Bob untouched since his turn
 
 
 def test_player_marked_full_when_all_categories_entered(
@@ -29,14 +29,14 @@ def test_player_marked_full_when_all_categories_entered(
     make_game(["Alice", "Bob"])
     score_turn(**full_sheet)
 
-    assert player(1).full == "yes"
+    assert player(1).full is True
 
 
 def test_player_not_full_with_an_empty_category(make_game, score_turn, player):
     make_game(["Alice", "Bob"])
     score_turn(ones=1)  # only one category filled
 
-    assert player(1).full != "yes"
+    assert player(1).full is False
 
 
 def test_game_redirects_to_end_when_everyone_is_full(

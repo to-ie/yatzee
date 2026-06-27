@@ -93,7 +93,7 @@
 				<p class="bonustitle">bonus section</p>
 			</div>
 			<div class="inputscore">
-				{% if subtotalupper > 62 %}
+				{% if currentplayer.bonus %}
 				<p class="bonustotal green">+35<br>points</p>
 				{% else %}
 				<p class="bonustotal">total so far: {{ currentplayer.subtotalupper }}</p>
@@ -201,17 +201,9 @@
 
     <div class="currentscore">
 		<p class="cstitle">Current score:</p>
-		<p class="csplayer">{{ playerone.name }}: {{totp1}} points</p>
-		<p class="csplayer">{{ playertwo.name }}: {{totp2}} points</p>
-		{% if playerthree.name %}
-		<p class="csplayer">{{ playerthree.name }}: {{totp3}} points</p>
-		{% endif %}
-		{% if playerfour.name %}
-		<p class="csplayer">{{ playerfour.name }}: {{totp4}} points</p>
-		{% endif %}
-		{% if playerfive.name %}
-		<p class="csplayer">{{ playerfive.name }}: {{totp5}} points</p>
-		{% endif %}
+		{% for p in players %}
+		<p class="csplayer">{{ p.name }}: {{ p.total }} points</p>
+		{% endfor %}
 	</div>
 
 	<a href="{{ url_for('pause') }}" class="actionbuttonpause">

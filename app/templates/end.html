@@ -10,12 +10,11 @@
 	</div>
 
 	<div class="break"></div>
-	{% set rows = [(playerone, totp1), (playertwo, totp2), (playerthree, totp3), (playerfour, totp4), (playerfive, totp5)] %}
-	{% for player, total in rows if player.name %}
-	{% set is_winner = winnerscore > 0 and (total or 0) == winnerscore %}
+	{% for player in players %}
+	{% set is_winner = winnerscore > 0 and player.total == winnerscore %}
 	<div class="final-row {{ 'final-row-dark' if loop.index is odd else 'final-row-light' }}{% if is_winner %} winner{% endif %}">
 		<p class="final-name">{% if is_winner %}🏆 {% endif %}{{ player.name }}</p>
-		<p class="final-score">{{ total or 0 }} points</p>
+		<p class="final-score">{{ player.total }} points</p>
 	</div>
 	{% endfor %}
 
