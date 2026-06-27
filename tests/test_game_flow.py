@@ -15,12 +15,12 @@ def test_turn_wraps_back_to_first_player(make_game, score_turn, player):
     # (Note: a submit overwrites the player's whole sheet, so we use distinct
     # markers rather than accumulating values across turns.)
     make_game(["Alice", "Bob"])
-    score_turn(chance=11)  # turn 1 -> Alice
-    score_turn(chance=22)  # turn 2 -> Bob
-    score_turn(chance=33)  # turn 3 -> should wrap back to Alice
+    score_turn(chance=10)  # turn 1 -> Alice
+    score_turn(chance=20)  # turn 2 -> Bob
+    score_turn(chance=30)  # turn 3 -> should wrap back to Alice
 
-    assert player(1).chance == 33   # third turn landed on Alice
-    assert player(2).chance == 22   # Bob untouched since his turn
+    assert player(1).chance == 30   # third turn landed on Alice
+    assert player(2).chance == 20   # Bob untouched since his turn
 
 
 def test_player_marked_full_when_all_categories_entered(

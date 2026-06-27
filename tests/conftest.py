@@ -76,5 +76,9 @@ def player(app):
 
 @pytest.fixture
 def full_sheet():
-    """A complete, valid score sheet (every category filled)."""
-    return {c: 1 for c in CATEGORIES}
+    """A complete sheet of legal scores (every category filled)."""
+    return {
+        "ones": 1, "twos": 2, "threes": 3, "fours": 4, "fives": 5, "sixes": 6,
+        "threex": 10, "fourx": 12, "fullhouse": 25,
+        "small": 30, "large": 40, "yahtzee": 50, "chance": 15,
+    }

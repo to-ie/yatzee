@@ -12,7 +12,7 @@
 
 	<form action="" method="post">
 	    {{ form.hidden_tag() }}
-	    
+
 
 	<div class="break"></div>
 	<div class="col1">
@@ -23,6 +23,7 @@
 			</div>
 			<div class="inputscore">
 				{{ form.ones(size=10, class_='commentscore', type="number") }}
+				{% for e in form.ones.errors %}<span class="fielderror">{{ e }}</span>{% endfor %}
 			</div>
 			<div class="commentscore">
 				<p>sum of ones</p>
@@ -35,6 +36,7 @@
 			</div>
 			<div class="inputscore">
 				{{ form.twos(size=10, class_='commentscore', type="number") }}
+				{% for e in form.twos.errors %}<span class="fielderror">{{ e }}</span>{% endfor %}
 			</div>
 			<div class="commentscore">
 				<p>sum of twos</p>
@@ -47,6 +49,7 @@
 			</div>
 			<div class="inputscore">
 				{{ form.threes(size=10, class_='commentscore', type="number") }}
+				{% for e in form.threes.errors %}<span class="fielderror">{{ e }}</span>{% endfor %}
 			</div>
 			<div class="commentscore">
 				<p>sum of threes</p>
@@ -59,6 +62,7 @@
 			</div>
 			<div class="inputscore">
 				{{ form.fours(size=10, class_='commentscore', type="number") }}
+				{% for e in form.fours.errors %}<span class="fielderror">{{ e }}</span>{% endfor %}
 			</div>
 			<div class="commentscore">
 				<p>sum of fours</p>
@@ -71,6 +75,7 @@
 			</div>
 			<div class="inputscore">
 				{{ form.fives(size=10, class_='commentscore', type="number") }}
+				{% for e in form.fives.errors %}<span class="fielderror">{{ e }}</span>{% endfor %}
 			</div>
 			<div class="commentscore">
 				<p>sum of fives</p>
@@ -83,6 +88,7 @@
 			</div>
 			<div class="inputscore">
 				{{ form.sixes(size=10, class_='commentscore', type="number") }}
+				{% for e in form.sixes.errors %}<span class="fielderror">{{ e }}</span>{% endfor %}
 			</div>
 			<div class="commentscore">
 				<p>sum of sixes</p>
@@ -113,6 +119,7 @@
 			</div>
 			<div class="inputscore">
 				{{ form.threex(size=10, class_='commentscore', type="number") }}
+				{% for e in form.threex.errors %}<span class="fielderror">{{ e }}</span>{% endfor %}
 			</div>
 			<div class="commentscore">
 				<p>three of a kind</p>
@@ -125,6 +132,7 @@
 			</div>
 			<div class="inputscore">
 				{{ form.fourx(size=10, class_='commentscore', type="number") }}
+				{% for e in form.fourx.errors %}<span class="fielderror">{{ e }}</span>{% endfor %}
 			</div>
 			<div class="commentscore">
 				<p>four of a kind</p>
@@ -137,6 +145,7 @@
 			</div>
 			<div class="inputscore">
 				{{ form.fullhouse(size=10, class_='commentscore', type="number", placeholder='25') }}
+				{% for e in form.fullhouse.errors %}<span class="fielderror">{{ e }}</span>{% endfor %}
 			</div>
 			<div class="commentscore"><br>
 				<p>full house</p>
@@ -149,6 +158,7 @@
 			</div>
 			<div class="inputscore">
 				{{ form.small(size=10, class_='commentscore', type="number", placeholder='30') }}
+				{% for e in form.small.errors %}<span class="fielderror">{{ e }}</span>{% endfor %}
 			</div>
 			<div class="commentscore">
 				<p>small straight</p>
@@ -161,6 +171,7 @@
 			</div>
 			<div class="inputscore">
 				{{ form.large(size=10, class_='commentscore', type="number", placeholder='40') }}
+				{% for e in form.large.errors %}<span class="fielderror">{{ e }}</span>{% endfor %}
 			</div>
 			<div class="commentscore">
 				<p>large straight</p>
@@ -173,6 +184,7 @@
 			</div>
 			<div class="inputscore">
 				{{ form.yahtzee(size=10, class_='commentscore', type="number", placeholder='50') }}
+				{% for e in form.yahtzee.errors %}<span class="fielderror">{{ e }}</span>{% endfor %}
 			</div>
 			<div class="commentscore"><br>
 				<p>yahtzee</p>
@@ -185,6 +197,7 @@
 			</div>
 			<div class="inputscore">
 				{{ form.chance(size=10, class_='commentscore', type="number") }}
+				{% for e in form.chance.errors %}<span class="fielderror">{{ e }}</span>{% endfor %}
 			</div>
 			<div class="commentscore"><br>
 				<p>chance</p>

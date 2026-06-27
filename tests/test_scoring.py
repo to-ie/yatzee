@@ -3,7 +3,7 @@
 
 def test_upper_subtotal_sums_the_upper_section(make_game, score_turn, player):
     make_game(["Alice", "Bob"])
-    score_turn(ones=5, twos=10, threes=15, fours=20, fives=12)  # = 62
+    score_turn(ones=5, twos=10, threes=15, fours=20, sixes=12)  # = 62
 
     p1 = player(1)
     assert p1.subtotalupper == 62
@@ -11,7 +11,7 @@ def test_upper_subtotal_sums_the_upper_section(make_game, score_turn, player):
 
 def test_bonus_not_awarded_at_62(make_game, score_turn, player):
     make_game(["Alice", "Bob"])
-    score_turn(ones=5, twos=10, threes=15, fours=20, fives=12)  # = 62
+    score_turn(ones=5, twos=10, threes=15, fours=20, sixes=12)  # = 62
 
     p1 = player(1)
     assert p1.subtotalupper == 62
@@ -21,7 +21,7 @@ def test_bonus_not_awarded_at_62(make_game, score_turn, player):
 
 def test_bonus_awarded_at_63(make_game, score_turn, player):
     make_game(["Alice", "Bob"])
-    score_turn(ones=5, twos=10, threes=15, fours=20, fives=13)  # = 63
+    score_turn(ones=3, twos=10, threes=15, fours=20, fives=15)  # = 63
 
     p1 = player(1)
     assert p1.subtotalupper == 63

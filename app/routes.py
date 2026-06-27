@@ -1,5 +1,5 @@
 from app import app, db
-from flask import render_template, redirect, url_for, request
+from flask import render_template, redirect, url_for, request, flash
 from app.forms import PlayersForm, ScoreForm
 from app.models import Game, Player, CATEGORIES
 
@@ -7,16 +7,6 @@ from app.models import Game, Player, CATEGORIES
 def current_game():
     """The single active game (the app supports one at a time)."""
     return Game.query.first()
-
-
-def parse_score(raw):
-    """Form value -> stored score. Blank means 'not entered yet' (NULL)."""
-    if raw is None:
-        return None
-    raw = str(raw).strip()
-    if raw == '':
-        return None
-    return int(float(raw))
 
 
 @app.route('/')
@@ -76,12 +66,11 @@ def score():
 
     if request.method == 'GET':
         for c in CATEGORIES:
-            value = getattr(currentplayer, c)
-            getattr(form, c).data = '' if value is None else value
+            getattr(form, c).data = getattr(currentplayer, c)
 
     elif form.validate_on_submit():
         for c in CATEGORIES:
-            setattr(currentplayer, c, parse_score(getattr(form, c).data))
+            setattr(currentplayer, c, getattr(form, c).data)
 
         # advance to the next player, wrapping around
         game.nextplayer = game.nextplayer + 1
@@ -90,6 +79,9 @@ def score():
 
         db.session.commit()
         return redirect(url_for('score'))
+
+    elif request.method == 'POST':
+        flash('Some scores were invalid — please check the highlighted boxes.')
 
     return render_template('score.html', title='Score', form=form,
                            currentplayer=currentplayer, players=players)

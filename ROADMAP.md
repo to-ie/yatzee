@@ -60,14 +60,21 @@ ordered roughly by leverage.
   path was verified on a clean database.
 - All 10 behaviour tests still pass.
 
+### Server-side score validation
+- Score fields are now validated `IntegerField`s, so non-numeric input is a
+  friendly form error instead of a 500. Per-category rules: upper section
+  bounded by `face*5` and a multiple of the face; three/four-of-a-kind and
+  chance `0..30`; full house `0/25`; straights `0/30` and `0/40`; yahtzee
+  `0/50`; blank = unfilled; `0` = a valid scratch.
+- Invalid submits re-render with per-field error messages and a flash banner,
+  and do **not** save or advance the turn.
+- Added `tests/test_validation.py` (7 tests). Full suite: 17 passing.
+
 ---
 
 ## 🔜 Next up
 
-### 1. Correctness / bug fixes
-- **Server-side score validation** — `parse_score()` still does
-  `int(float(...))`, so non-numeric input is an instant 500. Add WTForms
-  validators (per-category ranges) + a friendly flash message.
+### 1. Correctness / UX
 - **"Overwrite whole sheet" footgun** — a submit writes every category from
   the form, relying on the GET pre-fill to round-trip prior values. Consider
   updating only changed categories (and an explicit scratch/zero action).
