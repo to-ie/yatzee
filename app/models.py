@@ -12,6 +12,7 @@ UPPER_BONUS = 35
 
 class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String(8), unique=True, index=True)  # shareable join code
     numberofplayers = db.Column(db.Integer)
     nextplayer = db.Column(db.Integer, default=1)
 

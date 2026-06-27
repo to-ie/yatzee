@@ -27,6 +27,40 @@ def test_score_without_a_game_redirects_home(client):
     assert resp.headers["Location"] in ("/", "/index")
 
 
+def test_game_can_be_joined_from_another_browser_by_code(app):
+    from app.models import Game
+
+    host = app.test_client()
+    _start_game(host, ["Alice", "Bob"])
+    code = Game.query.first().code
+    assert code  # a code was generated
+
+    visitor = app.test_client()           # a different browser, no cookie
+    assert visitor.get("/score").status_code == 302   # can't see it yet
+
+    visitor.get(f"/g/{code}")             # follow the shared link
+    page = visitor.get("/score").get_data(as_text=True)
+    assert "Alice" in page                # now in the same game
+
+
+def test_join_code_is_case_insensitive(app):
+    from app.models import Game
+
+    host = app.test_client()
+    _start_game(host, ["Alice", "Bob"])
+    code = Game.query.first().code
+
+    visitor = app.test_client()
+    visitor.get(f"/g/{code.lower()}")
+    assert "Alice" in visitor.get("/score").get_data(as_text=True)
+
+
+def test_unknown_code_redirects_to_join(client):
+    resp = client.get("/g/ZZZZ")
+    assert resp.status_code == 302
+    assert resp.headers["Location"].endswith("/join")
+
+
 def test_reset_clears_only_this_session(app):
     c1 = app.test_client()
     c2 = app.test_client()

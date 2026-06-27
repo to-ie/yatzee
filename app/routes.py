@@ -1,19 +1,39 @@
+import secrets
+
 from app import app, db
 from flask import render_template, redirect, url_for, request, flash, session
-from app.forms import PlayersForm, ScoreForm
+from app.forms import PlayersForm, ScoreForm, JoinForm
 from app.models import Game, Player, CATEGORIES
+
+# Alphabet for join codes: no 0/O/1/I to avoid confusion when read aloud.
+CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+CODE_LENGTH = 4
+
+
+def new_game_code():
+    """A short code that isn't already in use."""
+    while True:
+        code = ''.join(secrets.choice(CODE_ALPHABET) for _ in range(CODE_LENGTH))
+        if Game.query.filter_by(code=code).first() is None:
+            return code
 
 
 def current_game():
     """The game belonging to this browser session, or None.
 
-    Each session owns its own game (stored by id in the signed session
-    cookie), so several people can keep separate scorecards at once.
+    The session cookie stores the game id for convenient auto-resume; a game
+    can also be opened from any browser via its shareable code (see /join).
     """
     game_id = session.get('game_id')
     if game_id is None:
         return None
     return db.session.get(Game, game_id)
+
+
+def join_game(game):
+    """Adopt a game into this session (so it auto-resumes here)."""
+    session['game_id'] = game.id
+    session.permanent = True
 
 
 @app.route('/')
@@ -35,7 +55,7 @@ def nametheplayers(numberplayers):
 
     if form.validate_on_submit():
         count = int(numberplayers)
-        game = Game(numberofplayers=count, nextplayer=1)
+        game = Game(numberofplayers=count, nextplayer=1, code=new_game_code())
         db.session.add(game)
         db.session.flush()   # assign game.id before adding players
 
@@ -45,14 +65,29 @@ def nametheplayers(numberplayers):
             db.session.add(Player(game_id=game.id, playerid=i + 1, name=names[i]))
         db.session.commit()
 
-        # remember this game for the rest of the session (survives restarts)
-        session['game_id'] = game.id
-        session.permanent = True
-
+        join_game(game)   # remember this game for the rest of the session
         return redirect(url_for('score'))
 
     return render_template('nametheplayers.html', title='What are they called?',
                            form=form, numberplayers=numberplayers)
+
+
+@app.route('/g/<code>')
+def join_by_link(code):
+    game = Game.query.filter_by(code=code.upper()).first()
+    if game is None:
+        flash('No game found with that code.')
+        return redirect(url_for('join'))
+    join_game(game)
+    return redirect(url_for('score'))
+
+
+@app.route('/join', methods=['GET', 'POST'])
+def join():
+    form = JoinForm()
+    if form.validate_on_submit():
+        return redirect(url_for('join_by_link', code=form.code.data.strip().upper()))
+    return render_template('join.html', title='Join a game', form=form)
 
 
 @app.route('/reset')
@@ -103,7 +138,8 @@ def score():
         flash('Some scores were invalid — please check the highlighted boxes.')
 
     return render_template('score.html', title='Score', form=form,
-                           currentplayer=currentplayer, players=players)
+                           currentplayer=currentplayer, players=players,
+                           game=game)
 
 
 @app.route('/pause')

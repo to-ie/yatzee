@@ -219,6 +219,11 @@
 		{% endfor %}
 	</div>
 
+	<div class="sharecode">
+		<p>Game code: <strong>{{ game.code }}</strong></p>
+		<p class="sharehint">Open <code>/join</code> on another device and enter it.</p>
+	</div>
+
 	<a href="{{ url_for('pause') }}" class="actionbuttonpause">
 	    <div class="actionbuttonpausediv">Pause game</div>
 	</a>

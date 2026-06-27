@@ -12,6 +12,11 @@ class PlayersForm(FlaskForm):
     submit = SubmitField("Let's play!")
 
 
+class JoinForm(FlaskForm):
+    code = StringField('Game code', validators=[DataRequired()])
+    submit = SubmitField('Join game')
+
+
 def multiple_of(n):
     """Validator: the value (if present) must be a multiple of n."""
     def _check(form, field):

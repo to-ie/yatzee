@@ -93,6 +93,17 @@ ordered roughly by leverage.
 - Added `tests/test_sessions.py` (3 tests: isolation, no-game redirect,
   scoped reset). Full suite: **21 passing**.
 
+### Shareable games (cross-browser / cross-device)
+- Each game gets a short, unambiguous join code (e.g. `PS58`; no 0/O/1/I).
+  Opening `/g/<code>` (a shareable link) or entering the code at `/join`
+  adopts the game into that browser's session — so a game started on one
+  device can be opened from any other browser/device, not just the one that
+  created it.
+- The code is shown on the scorecard; the home page has a "Join game" entry.
+  Migration `cf40ee04265c_add_shareable_game_code` adds the column.
+- Added join tests (cross-browser join, case-insensitive code, unknown-code
+  redirect). Full suite: **24 passing**.
+
 ---
 
 ## 💡 Ideas / nice-to-haves

@@ -312,6 +312,30 @@ h4 {
 .bonustotal { color: #FFFFFF80; }
 .green { color: var(--green) !important; }
 
+/* shareable game code */
+.sharecode {
+    margin: 1.5rem 0 0;
+    padding: clamp(0.75rem, 3vw, 1.25rem);
+    text-align: center;
+    color: var(--white);
+}
+.sharecode p { margin: 0; font-family: var(--display); }
+.sharecode strong {
+    display: inline-block;
+    margin-top: 0.25rem;
+    padding: 0.1em 0.5em;
+    background-color: var(--orange);
+    border-radius: 10px;
+    font-size: clamp(1.8rem, 7vw, 3rem);
+    letter-spacing: 4px;
+}
+.sharehint {
+    margin-top: 0.5rem !important;
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    color: #ffffffaa;
+    font-family: 'Lato', sans-serif !important;
+}
+
 /* live scoreboard under the card — chips that wrap into a row on wide screens */
 .currentscore {
     background-color: #ffffff30;
