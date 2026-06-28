@@ -19,6 +19,7 @@ services:
     buildCommand: pip install -r requirements.txt
     # Apply migrations on each boot (idempotent), then serve via gunicorn.
     startCommand: flask db upgrade && gunicorn yatzee:app --bind 0.0.0.0:$PORT
+    healthCheckPath: /healthz
     envVars:
       - key: FLASK_APP
         value: yatzee.py

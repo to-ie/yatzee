@@ -21,6 +21,12 @@ def test_two_sessions_have_independent_games(app):
     assert "Carol" in page2 and "Alice" not in page2
 
 
+def test_healthz_is_ok_without_a_game(client):
+    resp = client.get("/healthz")
+    assert resp.status_code == 200
+    assert resp.get_data(as_text=True) == "ok"
+
+
 def test_score_without_a_game_redirects_home(client):
     resp = client.get("/score")
     assert resp.status_code == 302

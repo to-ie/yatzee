@@ -36,6 +36,12 @@ def join_game(game):
     session.permanent = True
 
 
+@app.route('/healthz')
+def healthz():
+    """Lightweight liveness check for the platform (no DB / session work)."""
+    return 'ok', 200
+
+
 @app.route('/')
 @app.route('/index')
 def index():
