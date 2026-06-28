@@ -1,46 +1,76 @@
 from app import db
 
+# Score categories, grouped by section. Routes and templates iterate these
+# instead of hardcoding the 13 fields in several places.
+UPPER = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes']
+LOWER = ['threex', 'fourx', 'fullhouse', 'small', 'large', 'yahtzee', 'chance']
+CATEGORIES = UPPER + LOWER
+
+UPPER_BONUS_THRESHOLD = 63   # upper subtotal that earns the bonus
+UPPER_BONUS = 35
+
+
 class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    numberofplayers = db.Column(db.Integer(), index=True)
-    nextplayer = db.Column(db.Integer(), index=True, default=1)
-    playerone = db.Column(db.String(64), index=True, unique=True)
-    playertwo = db.Column(db.String(64), index=True, unique=True)
-    playerthree = db.Column(db.String(64), index=True, unique=True)
-    playerfour = db.Column(db.String(64), index=True, unique=True)
-    playerfive = db.Column(db.String(64), index=True, unique=True)
+    code = db.Column(db.String(8), unique=True, index=True)  # shareable join code
+    numberofplayers = db.Column(db.Integer)
+    nextplayer = db.Column(db.Integer, default=1)
+
+    players = db.relationship(
+        'Player',
+        backref='game',
+        cascade='all, delete-orphan',
+        order_by='Player.playerid',
+    )
 
     def __repr__(self):
-        return ''.format(self.id)
+        return f'<Game {self.id}>'
 
-class Score(db.Model):
+
+class Player(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    game_id = db.Column(db.Integer, db.ForeignKey('game.id'))
+    playerid = db.Column(db.Integer, index=True)   # turn order within the game
+    name = db.Column(db.String(64))
 
-    name = db.Column(db.String(64), index=True)
-    playerid = db.Column(db.Integer(), index=True)
+    # Category scores. NULL means "not entered yet" (distinct from a scored 0).
+    ones = db.Column(db.Integer)
+    twos = db.Column(db.Integer)
+    threes = db.Column(db.Integer)
+    fours = db.Column(db.Integer)
+    fives = db.Column(db.Integer)
+    sixes = db.Column(db.Integer)
 
-    ones = db.Column(db.String(64), index=True)
-    twos = db.Column(db.String(64), index=True)
-    threes = db.Column(db.String(64), index=True)
-    fours = db.Column(db.String(64), index=True)
-    fives = db.Column(db.String(64), index=True)
-    sixes = db.Column(db.String(64), index=True)
-    subtotalupper = db.Column(db.Integer(), index=True, default=0)
-    bonus = db.Column(db.Integer(), index=True, default=0)
-    totaluppersection = db.Column(db.Integer(), index=True)
+    threex = db.Column(db.Integer)
+    fourx = db.Column(db.Integer)
+    fullhouse = db.Column(db.Integer)
+    small = db.Column(db.Integer)
+    large = db.Column(db.Integer)
+    yahtzee = db.Column(db.Integer)
+    chance = db.Column(db.Integer)
 
-    threex = db.Column(db.String(64), index=True)
-    fourx = db.Column(db.String(64), index=True)
-    fullhouse = db.Column(db.String(64), index=True)
-    small = db.Column(db.String(64), index=True)
-    large = db.Column(db.String(64), index=True)
-    yahtzee = db.Column(db.String(64), index=True)
-    chance = db.Column(db.String(64), index=True)
-    totallower = db.Column(db.Integer(), index=True)
-    
-    full = db.Column(db.String(64), index=True, default='no')
+    # Totals are derived from the category scores, so they are always current
+    # (this is what fixes the old "totals don't update in real time" bug).
+    @property
+    def subtotalupper(self):
+        return sum(getattr(self, c) or 0 for c in UPPER)
 
-    total = db.Column(db.Integer(), index=True)
+    @property
+    def bonus(self):
+        return UPPER_BONUS if self.subtotalupper >= UPPER_BONUS_THRESHOLD else 0
+
+    @property
+    def totallower(self):
+        return sum(getattr(self, c) or 0 for c in LOWER)
+
+    @property
+    def total(self):
+        return self.subtotalupper + self.bonus + self.totallower
+
+    @property
+    def full(self):
+        """True once every category has been filled in."""
+        return all(getattr(self, c) is not None for c in CATEGORIES)
 
     def __repr__(self):
-        return ''.format(self.id)
+        return f'<Player {self.playerid} {self.name!r}>'

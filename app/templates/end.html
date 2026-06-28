@@ -10,56 +10,13 @@
 	</div>
 
 	<div class="break"></div>
-	<div class="row-dark">
-		<div class="col1">
-		<p class="final-name">{{ playerone.name }}</p>
-		</div>
-		<div class="col2">
-			<p class="final-score">{{ totp1 }} points</p>
-		</div>
+	{% for player in players %}
+	{% set is_winner = winnerscore > 0 and player.total == winnerscore %}
+	<div class="final-row {{ 'final-row-dark' if loop.index is odd else 'final-row-light' }}{% if is_winner %} winner{% endif %}">
+		<p class="final-name">{% if is_winner %}🏆 {% endif %}{{ player.name }}</p>
+		<p class="final-score">{{ player.total }} points</p>
 	</div>
-
-	<div class="row-light">
-		<div class="col1">
-		<p class="final-name">{{ playertwo.name }}</p>
-		</div>
-		<div class="col2">
-			<p class="final-score">{{ totp2 }} points</p>
-		</div>
-	</div>
-
-	{% if playerthree.name %}
-	<div class="row-dark">
-		<div class="col1">
-		<p class="final-name">{{ playerthree.name }}</p>
-		</div>
-		<div class="col2">
-			<p class="final-score">{{ totp3 }} points</p>
-		</div>
-	</div>
-	{% endif %}
-
-	{% if playerfour.name %}
-	<div class="row-light">
-		<div class="col1">
-		<p class="final-name">{{ playerfour.name }}</p>
-		</div>
-		<div class="col2">
-			<p class="final-score">{{ totp4 }} points</p>
-		</div>
-	</div>
-	{% endif %}
-
-	{% if playerfive.name %}
-	<div class="row-dark">
-		<div class="col1">
-		<p class="final-name">{{ playerfive.name }}</p>
-		</div>
-		<div class="col2">
-			<p class="final-score">{{ totp5 }} points</p>
-		</div>
-	</div>
-	{% endif %}
+	{% endfor %}
 
 	<a href="{{ url_for('index') }}" class="actionbutton">
 	    <div class="actionbuttondiv">Back to home page</div>

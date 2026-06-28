@@ -100,20 +100,50 @@ Open [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in your browser.
 * Configuration lives in `config.py`.
 * Database migrations are in `migrations/`.
 
-### Running formatters/tests
+### Running tests
 
-(If you add tooling later, e.g. `ruff`/`black`/`pytest`, document the commands here.)
+```bash
+pip install -r requirements-dev.txt
+python -m pytest
+```
+
+The suite is black-box integration tests that drive the app through its HTTP
+routes (scoring math, turn flow, validation), so they don't depend on the
+database schema.
+
+### Configuration
+
+* `SECRET_KEY` — set this in the environment for any non-local deployment. If
+  unset, a random key is generated per process (fine for local dev).
+* `DATABASE_URL` — overrides the default local SQLite database.
 
 ---
 
-## Deployment (basic)
+## Deployment
 
-For a tiny self‑host:
+### Render (Blueprint)
+
+The repo includes [`render.yaml`](render.yaml), which provisions a web service
+plus a managed Postgres database.
+
+1. Push this repo to GitHub.
+2. In Render (in the workspace you want it under): **New → Blueprint**, and
+   select this repo.
+3. Render reads `render.yaml`, creates the service + database, generates a
+   `SECRET_KEY`, wires `DATABASE_URL`, runs `flask db upgrade`, and starts
+   gunicorn.
+
+Free-plan caveats: the web service sleeps after ~15 min idle (slow first
+request), and a **free Postgres database is deleted ~90 days after creation** —
+upgrade the database or back it up to keep data longer.
+
+### Any other host
 
 ```bash
-pip install gunicorn
-export FLASK_APP=yatzee.py
-gunicorn -w 2 -b 0.0.0.0:8000 yatzee:app
+pip install -r requirements.txt
+export FLASK_APP=yatzee.py SECRET_KEY=<something-stable> DATABASE_URL=<your-db>
+flask db upgrade
+gunicorn yatzee:app -w 2 -b 0.0.0.0:8000
 ```
 
 Put a reverse proxy (Nginx/Caddy) in front if exposing to the internet.
