@@ -119,14 +119,31 @@ database schema.
 
 ---
 
-## Deployment (basic)
+## Deployment
 
-For a tiny self‑host:
+### Render (Blueprint)
+
+The repo includes [`render.yaml`](render.yaml), which provisions a web service
+plus a managed Postgres database.
+
+1. Push this repo to GitHub.
+2. In Render (in the workspace you want it under): **New → Blueprint**, and
+   select this repo.
+3. Render reads `render.yaml`, creates the service + database, generates a
+   `SECRET_KEY`, wires `DATABASE_URL`, runs `flask db upgrade`, and starts
+   gunicorn.
+
+Free-plan caveats: the web service sleeps after ~15 min idle (slow first
+request), and a **free Postgres database is deleted ~90 days after creation** —
+upgrade the database or back it up to keep data longer.
+
+### Any other host
 
 ```bash
-pip install gunicorn
-export FLASK_APP=yatzee.py
-gunicorn -w 2 -b 0.0.0.0:8000 yatzee:app
+pip install -r requirements.txt
+export FLASK_APP=yatzee.py SECRET_KEY=<something-stable> DATABASE_URL=<your-db>
+flask db upgrade
+gunicorn yatzee:app -w 2 -b 0.0.0.0:8000
 ```
 
 Put a reverse proxy (Nginx/Caddy) in front if exposing to the internet.
